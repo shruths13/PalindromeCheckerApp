@@ -1,22 +1,30 @@
-import java.util.Scanner;
-public class Main {
+import java.util.Stack;
+
+public class Main{
+
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
+        String input = "noon";
 
-        System.out.println("Enter a string:");
-        String input = scanner.nextLine();
+        Stack<Character> stack = new Stack<>();
 
-        String reversed = "";
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed = reversed + input.charAt(i);
+        for (char c : input.toCharArray()) {
+            stack.push(c);
         }
-        if (input.equals(reversed)) {
-            System.out.println("The string is a Palindrome.");
+
+        boolean isPalindrome = true;
+
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println(input + " is a Palindrome");
         } else {
-            System.out.println("The string is NOT a Palindrome.");
+            System.out.println(input + " is not a Palindrome");
         }
-
-        scanner.close();
     }
 }
