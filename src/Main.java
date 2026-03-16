@@ -1,21 +1,30 @@
-public class Main {
+import java.util.Stack;
 
+public class UseCase11PalindromeCheckerApp {
     public static void main(String[] args) {
+        PalindromeService palindromeService = new PalindromeService();
+        String testInput = "madam";
+        boolean isPalindrome = palindromeService.checkPalindrome(testInput);
+        if (isPalindrome) {
+            System.out.println(testInput + " is a palindrome.");
+        } else {
+            System.out.println(testInput + " is not a palindrome.");
+        }
+    }
+}
 
-        String input = "A man a plan a canal Panama";
-
-        String normalized = input.replaceAll("[^a-zA-Z]", "").toLowerCase();
-
-        boolean isPalindrome = true;
-
-        for (int i = 0; i < normalized.length() / 2; i++) {
-            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
+class PalindromeService {
+    public boolean checkPalindrome(String input) {
+        String cleanedInput = input.replaceAll("\\s", "").toLowerCase();
+        Stack<Character> stack = new Stack<>();
+        for (char ch : cleanedInput.toCharArray()) {
+            stack.push(ch);
+        }
+        for (char ch : cleanedInput.toCharArray()) {
+            if (ch != stack.pop()) {
+                return false;
             }
         }
-
-        System.out.println("Input : " + input);
-        System.out.println("Is Palindrome? : " + isPalindrome);
+        return true;
     }
 }
