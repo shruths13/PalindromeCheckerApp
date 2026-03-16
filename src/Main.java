@@ -1,30 +1,38 @@
-import java.util.Stack;
+public class Main {
 
-public class UseCase11PalindromeCheckerApp {
     public static void main(String[] args) {
-        PalindromeService palindromeService = new PalindromeService();
-        String testInput = "madam";
-        boolean isPalindrome = palindromeService.checkPalindrome(testInput);
-        if (isPalindrome) {
-            System.out.println(testInput + " is a palindrome.");
-        } else {
-            System.out.println(testInput + " is not a palindrome.");
-        }
+
+        String input = "level";
+
+        PalindromeStrategy strategy = new StackStrategy();
+
+        boolean result = strategy.check(input);
+
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + result);
     }
 }
 
-class PalindromeService {
-    public boolean checkPalindrome(String input) {
-        String cleanedInput = input.replaceAll("\\s", "").toLowerCase();
-        Stack<Character> stack = new Stack<>();
-        for (char ch : cleanedInput.toCharArray()) {
-            stack.push(ch);
+interface PalindromeStrategy {
+    boolean check(String input);
+}
+
+class StackStrategy implements PalindromeStrategy {
+
+    public boolean check(String input) {
+
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+
+        for (char c : input.toCharArray()) {
+            stack.push(c);
         }
-        for (char ch : cleanedInput.toCharArray()) {
-            if (ch != stack.pop()) {
+
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
         }
+
         return true;
     }
 }
